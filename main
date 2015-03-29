@@ -1,0 +1,36 @@
+import os
+from datetime import datetime
+import zipfile
+
+# path to download folder
+path = "C:\\Users\Hai\Downloads"
+dirs = os.listdir(path)
+
+#get current date
+date = datetime.now().date()
+print(date)
+
+#prepare archive file name
+archieve = date.strftime('%m%d%Y') + ".zip"
+
+#create new archive
+zip = zipfile.ZipFile(archieve, mode='w')
+
+#file counter
+count = 0
+
+# Write files in directory to zip
+for file in dirs:
+    tempName = path + '\\' + file
+    try:
+        zip.write(tempName, 'w', zipfile.ZIP_DEFLATED)
+        count = count + 1
+        print(file)
+    except: print("Error")
+
+print(count, "has been compressed to ", archieve)
+zip.close()
+
+
+
+
